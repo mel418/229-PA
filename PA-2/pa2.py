@@ -106,19 +106,19 @@ else:
 
 '''
   Find all solutions to the congruence.
-  25x ≡ 3 (mod 7)
+  2x ≡ 7 (mod 15)
 '''
 # Define the given congruence
-a = 25
-b = 3
-modulus = 7
+a = 2
+b = 7
+modulus = 15
 
 # Calculate the greatest common divisor (GCD) of a and modulus
 gcd_result = gcd(a, modulus)
 
 if b % gcd_result == 0:
     # Calculate the modular inverse of 'a' modulo 'modulus'
-    modular_inverse = bezout_coeffs(a, modulus)[a]
+    modular_inverse = bezout_coeffs(a, modulus)[a] # doesnt need to be bezout only need for big big numbers
     # Calculate one solution using the modular inverse
     x = (modular_inverse * (b // gcd_result)) % modulus
     print(f"{x} + {modulus//gcd_result}k")
@@ -183,3 +183,25 @@ modulus = 11
 result = pow(a, exponent % (modulus - 1), modulus)
 
 print("The smallest non-negative integer congruent to 3^302 (mod 11) is:", result)
+
+
+def smallest_prime_factor(n):
+    """
+    Returns the smallest prime factor of n.
+    If n is prime, it returns n itself.
+    """
+    if n <= 1:
+        raise ValueError("Input must be greater than 1")
+    
+    for candidate in range(2, int(n**0.5) + 1):
+        if n % candidate == 0:
+            return candidate
+    
+    return n  # If no prime factor found, n is prime itself
+
+# Now, you can use the function to find the smallest prime factor of 1859
+number = 1859
+smallest_factor = smallest_prime_factor(number)
+print(f"The smallest prime factor of {number} is {smallest_factor}")
+
+smallest_prime_factor(1859)
